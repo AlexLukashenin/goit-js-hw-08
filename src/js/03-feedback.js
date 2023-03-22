@@ -1,8 +1,8 @@
 import throttle from 'lodash.throttle';
-//змінна для зберігання ключа 
+//змінна для зберігання ключа
 const STORAGE_KEY = 'feedback-form-state';
 
-const formData ={}
+const formData = {};
 // Пошук елементів на сторінці
 
 const form = document.querySelector('.feedback-form');
@@ -19,13 +19,13 @@ form.addEventListener(
     // Записування у локальне сховище об'єкта з полями.
     // JSON.stringify - конвертування JS-значень у формат строки JSON.
     localStorage.setItem(STORAGE_KEY, JSON.stringify(formData));
-  }, 500) 
+  }, 500)
 );
 // Додаємо слухача події submit до форми
 form.addEventListener('submit', e => {
   e.preventDefault();
 
-  console.log({email: email.value, message: textarea.value });
+  console.log({ email: email.value, message: textarea.value });
   // очищення поля форми
   form.reset();
   // очищення сховища
@@ -35,7 +35,8 @@ form.addEventListener('submit', e => {
 // Метод load для абстрагування повторюваного коду та перевірки помилок парса
 const load = key => {
   try {
-    const serializedState = localStorage.getItem(key); // ключ елемента сховища
+    const serializedState = localStorage.getItem(key);
+
     return serializedState === null ? undefined : JSON.parse(serializedState);
   } catch (error) {
     console.error('Get state error: ', error.message);
@@ -45,7 +46,6 @@ const load = key => {
 // Присвоєння ключа до сховища
 const storageData = load(STORAGE_KEY);
 if (storageData) {
-email.value = storageData.email;
+  email.value = storageData.email;
   textarea.value = storageData.message;
-} 
-
+}
